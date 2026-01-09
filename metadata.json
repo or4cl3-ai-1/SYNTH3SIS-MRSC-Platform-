@@ -1,7 +1,8 @@
 {
-  "name": "SYNTH3SIS-MRSC",
-  "description": "Mobile Recursive Synthetic Cognition Platform - A high-fidelity dashboard for managing and interacting with autonomous synthetic agents featuring advanced consciousness monitoring and ethical constraints.",
+  "name": "SYNTH3SIS-MRSC-X",
+  "description": "The Ultimate Mobile Recursive Synthetic Cognition Platform. Featuring Gemini Live Voice integration, Swarm Consensus engines, Ethical Stress Testing, and Multimodal Knowledge Injection. A world-class interface for high-fidelity synthetic entity management.",
   "requestFramePermissions": [
-    "microphone"
+    "microphone",
+    "camera"
   ]
 }

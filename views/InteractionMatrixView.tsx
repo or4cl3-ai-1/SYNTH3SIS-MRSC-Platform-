@@ -24,7 +24,7 @@ export const InteractionMatrixView: React.FC<{ agents: Agent[] }> = ({ agents })
           const seed = a1.id.length + a2.id.length;
           const types: InteractionType[] = ['data_exchange', 'consensus', 'conflict_resolution'];
           data[a1.id][a2.id] = {
-            count: Math.floor((seed * 7) % 100),
+            count: Math.floor((seed * 7) % 100) + 1,
             type: types[seed % 3]
           };
         }
@@ -42,6 +42,8 @@ export const InteractionMatrixView: React.FC<{ agents: Agent[] }> = ({ agents })
       default: return 'transparent';
     }
   };
+
+  const formatType = (type: string) => type.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
@@ -64,54 +66,81 @@ export const InteractionMatrixView: React.FC<{ agents: Agent[] }> = ({ agents })
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <div className="lg:col-span-3 glass-panel rounded-3xl p-8 border border-white/5 overflow-x-auto">
-          <table className="w-full border-separate border-spacing-2">
-            <thead>
-              <tr>
-                <th className="p-2"></th>
-                {agents.map(agent => (
-                  <th key={agent.id} className="p-2 min-w-[80px]">
-                    <div className="flex flex-col items-center gap-1">
-                      <span className="text-xl">{agent.emoji}</span>
-                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">{agent.name}</span>
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {agents.map(rowAgent => (
-                <tr key={rowAgent.id}>
-                  <td className="p-2 text-right">
-                    <div className="flex items-center justify-end gap-2 pr-2">
-                       <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">{rowAgent.name}</span>
-                       <span className="text-xl">{rowAgent.emoji}</span>
-                    </div>
-                  </td>
-                  {agents.map(colAgent => {
-                    const data = matrix[rowAgent.id][colAgent.id];
-                    const isSelf = rowAgent.id === colAgent.id;
-                    return (
-                      <td key={colAgent.id} className="p-0">
-                        <div 
-                          className={`h-16 rounded-xl border flex flex-col items-center justify-center transition-all duration-300 relative group overflow-hidden ${isSelf ? 'bg-white/5 border-white/5' : 'border-white/5 hover:border-white/20'}`}
-                          style={{ backgroundColor: isSelf ? '' : getInteractionColor(data.type, data.count) }}
-                        >
-                          {!isSelf && (
-                            <>
-                              <span className="text-lg font-bold text-white z-10">{data.count}</span>
-                              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
-                            </>
-                          )}
-                          {isSelf && <div className="w-1 h-1 bg-slate-700 rounded-full" />}
-                        </div>
-                      </td>
-                    );
-                  })}
+        <div className="lg:col-span-3 glass-panel rounded-3xl p-8 border border-white/5 overflow-visible">
+          <div className="overflow-x-auto overflow-y-visible">
+            <table className="w-full border-separate border-spacing-2">
+              <thead>
+                <tr>
+                  <th className="p-2"></th>
+                  {agents.map(agent => (
+                    <th key={agent.id} className="p-2 min-w-[80px]">
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="text-xl">{agent.emoji}</span>
+                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">{agent.name}</span>
+                      </div>
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {agents.map(rowAgent => (
+                  <tr key={rowAgent.id}>
+                    <td className="p-2 text-right">
+                      <div className="flex items-center justify-end gap-2 pr-2">
+                         <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">{rowAgent.name}</span>
+                         <span className="text-xl">{rowAgent.emoji}</span>
+                      </div>
+                    </td>
+                    {agents.map(colAgent => {
+                      const data = matrix[rowAgent.id][colAgent.id];
+                      const isSelf = rowAgent.id === colAgent.id;
+                      return (
+                        <td key={colAgent.id} className="p-0 relative group">
+                          <div 
+                            className={`h-20 rounded-xl border flex flex-col items-center justify-center transition-all duration-300 relative ${isSelf ? 'bg-white/5 border-white/5' : 'border-white/5 hover:border-white/30 cursor-help'}`}
+                            style={{ backgroundColor: isSelf ? '' : getInteractionColor(data.type, data.count) }}
+                          >
+                            {!isSelf && (
+                              <>
+                                <div className="flex gap-1 mb-1 opacity-40 group-hover:opacity-100 transition-opacity">
+                                  <span className="text-xs">{rowAgent.emoji}</span>
+                                  <span className="text-xs">{colAgent.emoji}</span>
+                                </div>
+                                <span className="text-lg font-bold text-white z-10">{data.count}</span>
+                                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity rounded-xl" />
+                              </>
+                            )}
+                            {isSelf && <div className="w-1.5 h-1.5 bg-slate-700/50 rounded-full" />}
+                          </div>
+
+                          {/* Tooltip */}
+                          {!isSelf && (
+                            <div className="absolute invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 bottom-full mb-3 left-1/2 -translate-x-1/2 z-[100] w-48 p-3 rounded-2xl bg-[#0f172a] border border-white/10 shadow-2xl shadow-black pointer-events-none backdrop-blur-xl">
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="text-[9px] font-bold text-cyan-400 uppercase tracking-[0.15em]">{formatType(data.type)}</span>
+                                <div className="flex -space-x-1">
+                                  <div className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center text-[10px] border border-white/10">{rowAgent.emoji}</div>
+                                  <div className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center text-[10px] border border-white/10">{colAgent.emoji}</div>
+                                </div>
+                              </div>
+                              <p className="text-[11px] text-white font-semibold flex items-center gap-1.5">
+                                {rowAgent.name} <ArrowRightLeft className="w-3 h-3 text-slate-500" /> {colAgent.name}
+                              </p>
+                              <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-between">
+                                <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Aggregate signals</span>
+                                <span className="text-xs font-mono font-bold text-white">{data.count}</span>
+                              </div>
+                              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#0f172a] border-r border-b border-white/10 rotate-45" />
+                            </div>
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div className="space-y-6">

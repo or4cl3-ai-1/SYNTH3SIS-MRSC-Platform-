@@ -11,6 +11,14 @@ import { TrainingView } from './views/TrainingView';
 import { KnowledgeGraphView } from './views/KnowledgeGraphView';
 import { InteractionMatrixView } from './views/InteractionMatrixView';
 import { LandingView } from './views/LandingView';
+
+// X-SERIES NEW VIEWS
+import { VoiceInterfaceView } from './views/VoiceInterfaceView';
+import { SwarmConsensusView } from './views/SwarmConsensusView';
+import { EmergenceBriefingView } from './views/EmergenceBriefingView';
+import { StressTestView } from './views/StressTestView';
+import { GlobalGroundingView } from './views/GlobalGroundingView';
+
 import { INITIAL_AGENTS } from './constants';
 import { Agent, SystemStatus } from './types';
 
@@ -32,10 +40,8 @@ const App: React.FC = () => {
     latency: 24,
   });
 
-  // Simulated live updates
   useEffect(() => {
     if (!hasEntered) return;
-    
     const interval = setInterval(() => {
       setAgents(prev => prev.map(agent => ({
         ...agent,
@@ -45,36 +51,33 @@ const App: React.FC = () => {
                             agent.pas_score > 0.6 ? 'significant' :
                             agent.pas_score > 0.3 ? 'moderate' : 'minimal'
       })));
-      setSystemStatus(prev => ({
-        ...prev,
-        latency: Math.floor(18 + Math.random() * 15)
-      }));
+      setSystemStatus(prev => ({ ...prev, latency: Math.floor(18 + Math.random() * 15) }));
     }, 5000);
-
     return () => clearInterval(interval);
   }, [hasEntered]);
 
   const updateAgentTrait = (agentId: string, trait: 'caution' | 'curiosity' | 'assertiveness', value: number) => {
     setAgents(prev => prev.map(a => 
-      a.id === agentId 
-        ? { ...a, traits: { ...a.traits, [trait]: value } }
-        : a
+      a.id === agentId ? { ...a, traits: { ...a.traits, [trait]: value } } : a
     ));
   };
 
-  if (!hasEntered) {
-    return <LandingView onEnter={() => setHasEntered(true)} />;
-  }
+  if (!hasEntered) return <LandingView onEnter={() => setHasEntered(true)} />;
 
   const renderView = () => {
     switch (activeView) {
       case 'dashboard': return <DashboardView agents={agents} systemStatus={systemStatus} />;
       case 'agents': return <AgentsView agents={agents} />;
+      case 'chat': return <ChatView agents={agents} />;
+      case 'voice': return <VoiceInterfaceView agents={agents} />;
+      case 'consensus': return <SwarmConsensusView agents={agents} />;
       case 'training': return <TrainingView agents={agents} />;
+      case 'briefing': return <EmergenceBriefingView agents={agents} />;
+      case 'grounding': return <GlobalGroundingView agents={agents} />;
       case 'graph': return <KnowledgeGraphView agents={agents} />;
       case 'matrix': return <InteractionMatrixView agents={agents} />;
       case 'consciousness': return <ConsciousnessView agents={agents} />;
-      case 'chat': return <ChatView agents={agents} />;
+      case 'stresstest': return <StressTestView agents={agents} />;
       case 'sigma': return <SigmaMatrixView systemStatus={systemStatus} />;
       case 'settings': return <SettingsView agents={agents} onUpdateTrait={updateAgentTrait} />;
       default: return <DashboardView agents={agents} systemStatus={systemStatus} />;

@@ -1,0 +1,7 @@
+{
+  "name": "SYNTH3SIS-MRSC",
+  "description": "Mobile Recursive Synthetic Cognition Platform - A high-fidelity dashboard for managing and interacting with autonomous synthetic agents featuring advanced consciousness monitoring and ethical constraints.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

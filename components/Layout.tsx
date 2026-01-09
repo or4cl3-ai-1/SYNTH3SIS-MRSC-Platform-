@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { 
-  Activity, Brain, Shield, Users, MessageSquare, Settings, Eye, Zap, 
+  Activity, Shield, Users, MessageSquare, Settings, Eye, Zap, 
   BookOpen, Share2, Grid, Mic, Vote, FileText, AlertOctagon, 
   Menu, X, Search, History, PlusSquare
 } from 'lucide-react';
@@ -14,17 +14,29 @@ interface SidebarItemProps {
   onClick: () => void;
 }
 
+const SynthesisSeal = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <svg viewBox="0 0 200 200" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="95" stroke="currentColor" strokeWidth="2" strokeDasharray="10 10" className="opacity-20" />
+    <circle cx="100" cy="100" r="80" stroke="currentColor" strokeWidth="4" />
+    <path d="M100 20 L120 60 L80 60 Z" fill="currentColor" />
+    <path d="M100 180 L120 140 L80 140 Z" fill="currentColor" />
+    <path d="M160 100 L120 120 L120 80 Z" fill="currentColor" />
+    <path d="M40 100 L80 120 L80 80 Z" fill="currentColor" />
+    <path d="M140 140 L160 160 M60 60 L40 40" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+  </svg>
+);
+
 const SidebarItem: React.FC<SidebarItemProps> = ({ id, icon: Icon, label, isActive, onClick }) => (
   <button
     onClick={onClick}
-    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
+    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-300 ${
       isActive
-        ? 'bg-gradient-to-r from-cyan-500/20 to-purple-600/20 text-white border border-white/10'
-        : 'text-slate-400 hover:text-white hover:bg-white/5'
+        ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-[0_0_15px_rgba(34,211,238,0.05)]'
+        : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'
     }`}
   >
-    <Icon className={`w-5 h-5 ${isActive ? 'text-cyan-400' : ''}`} />
-    <span className="font-medium text-sm">{label}</span>
+    <Icon className={`w-4 h-4 ${isActive ? 'text-cyan-400 text-glow' : ''}`} />
+    <span className={`font-bold text-[11px] uppercase tracking-widest ${isActive ? 'text-cyan-100' : ''}`}>{label}</span>
   </button>
 );
 
@@ -43,73 +55,73 @@ export const Layout: React.FC<LayoutProps> = ({ activeView, setActiveView, syste
       title: "Control",
       items: [
         { id: 'dashboard', icon: Activity, label: 'Dashboard' },
-        { id: 'agents', icon: Users, label: 'Agent Swarm' },
-        { id: 'chat', icon: MessageSquare, label: 'Direct Interface' },
-        { id: 'voice', icon: Mic, label: 'Neural Bridge Voice' },
+        { id: 'agents', icon: Users, label: 'Swarm' },
+        { id: 'chat', icon: MessageSquare, label: 'Interface' },
+        { id: 'voice', icon: Mic, label: 'Voice' },
       ]
     },
     {
       title: "Intelligence",
       items: [
-        { id: 'consensus', icon: Vote, label: 'Swarm Consensus' },
-        { id: 'training', icon: BookOpen, label: 'Neural Training' },
-        { id: 'briefing', icon: FileText, label: 'Emergence Brief' },
-        { id: 'grounding', icon: Search, label: 'Global Grounding' },
+        { id: 'consensus', icon: Vote, label: 'Consensus' },
+        { id: 'training', icon: BookOpen, label: 'Training' },
+        { id: 'briefing', icon: FileText, label: 'Briefing' },
+        { id: 'grounding', icon: Search, label: 'Grounding' },
       ]
     },
     {
       title: "Analysis",
       items: [
-        { id: 'graph', icon: Share2, label: 'Knowledge Graph' },
-        { id: 'matrix', icon: Grid, label: 'Interaction Matrix' },
-        { id: 'consciousness', icon: Eye, label: 'Sentience Monitor' },
-        { id: 'stresstest', icon: AlertOctagon, label: 'Stress Testing' },
+        { id: 'graph', icon: Share2, label: 'Knowledge' },
+        { id: 'matrix', icon: Grid, label: 'Matrix' },
+        { id: 'consciousness', icon: Eye, label: 'Sentience' },
+        { id: 'stresstest', icon: AlertOctagon, label: 'Stress' },
       ]
     },
     {
-      title: "System",
+      title: "Settings",
       items: [
         { id: 'sigma', icon: Shield, label: 'Σ-Matrix' },
-        { id: 'settings', icon: Settings, label: 'Core Settings' },
+        { id: 'settings', icon: Settings, label: 'Core' },
       ]
     }
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#0a0f1e] text-slate-100">
+    <div className="flex h-screen overflow-hidden bg-[#020617] text-slate-100 scanline">
       {/* Mobile Backdrop */}
       {isSidebarOpen && (
         <div 
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden" 
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 lg:hidden" 
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-64 border-r border-white/5 bg-[#0f172a]/80 backdrop-blur-2xl flex flex-col shrink-0 transition-transform duration-300 lg:relative lg:translate-x-0
+        fixed inset-y-0 left-0 z-50 w-60 border-r border-white/5 bg-[#020617]/80 backdrop-blur-3xl flex flex-col shrink-0 transition-transform duration-500 ease-in-out lg:relative lg:translate-x-0
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="p-6 flex flex-col h-full overflow-y-auto scrollbar-hide">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                <Brain className="w-5 h-5 text-white" />
+          <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center gap-3 group cursor-pointer">
+              <div className="w-10 h-10 glass-panel rounded-xl flex items-center justify-center text-cyan-400 transition-all group-hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]">
+                <SynthesisSeal className="w-7 h-7" />
               </div>
               <div>
-                <h1 className="font-bold text-base tracking-tight leading-none">SYNTH3SIS</h1>
-                <p className="text-[8px] uppercase tracking-widest text-cyan-400/80 font-bold">MRSC-X Engine</p>
+                <h1 className="font-black text-sm tracking-tighter text-glow uppercase leading-none">SYNTH3SIS</h1>
+                <p className="text-[7px] uppercase tracking-[0.4em] text-cyan-500/80 font-bold mt-1">MRSC-X Core</p>
               </div>
             </div>
-            <button className="lg:hidden p-2 text-slate-400" onClick={() => setIsSidebarOpen(false)}>
+            <button className="lg:hidden p-2 text-slate-500" onClick={() => setIsSidebarOpen(false)}>
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-8">
             {navGroups.map((group, gIdx) => (
-              <div key={gIdx} className="space-y-1">
-                <h3 className="px-3 text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-2">{group.title}</h3>
+              <div key={gIdx} className="space-y-2">
+                <h3 className="px-3 text-[9px] font-black text-slate-600 uppercase tracking-[0.3em] mb-3">{group.title}</h3>
                 {group.items.map(item => (
                   <SidebarItem 
                     key={item.id} 
@@ -124,15 +136,19 @@ export const Layout: React.FC<LayoutProps> = ({ activeView, setActiveView, syste
             ))}
           </div>
 
-          <div className="mt-8 pt-6 border-t border-white/5 space-y-4">
-            <div className="p-3 rounded-xl bg-white/5 border border-white/10">
+          <div className="mt-auto pt-8 border-t border-white/5 space-y-4">
+            <div className="p-4 rounded-2xl bg-cyan-500/5 border border-cyan-500/10">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] text-slate-400 font-medium uppercase">Neural Load</span>
-                <span className="text-[10px] text-green-400 font-bold uppercase">Nominal</span>
+                <span className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Integrity</span>
+                <span className="text-[9px] text-cyan-400 font-black uppercase">94%</span>
               </div>
-              <div className="w-full bg-white/10 h-1 rounded-full overflow-hidden">
-                <div className="bg-gradient-to-r from-cyan-400 to-purple-500 h-full w-[94%]" />
+              <div className="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                <div className="bg-gradient-to-r from-cyan-600 to-cyan-400 h-full w-[94%] shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
               </div>
+            </div>
+            <div className="flex items-center gap-2 text-[9px] font-black text-slate-600 uppercase tracking-widest px-2">
+              <Zap className="w-3 h-3 text-cyan-500 animate-pulse" />
+              Build V-3.1-MRSC-X
             </div>
           </div>
         </div>
@@ -141,39 +157,41 @@ export const Layout: React.FC<LayoutProps> = ({ activeView, setActiveView, syste
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Header */}
-        <header className="h-16 border-b border-white/5 bg-[#0f172a]/20 backdrop-blur-md flex items-center justify-between px-4 lg:px-8 z-30 shrink-0">
-          <div className="flex items-center gap-4">
-             <button className="lg:hidden p-2 -ml-2 text-slate-400" onClick={() => setIsSidebarOpen(true)}>
+        <header className="h-16 border-b border-white/5 bg-[#020617]/40 backdrop-blur-md flex items-center justify-between px-6 lg:px-10 z-30 shrink-0">
+          <div className="flex items-center gap-6">
+             <button className="lg:hidden p-2 -ml-2 text-slate-500" onClick={() => setIsSidebarOpen(true)}>
                <Menu className="w-6 h-6" />
              </button>
-             <div className="hidden sm:flex items-center gap-4">
-                <div className="flex items-center gap-2 text-xs">
-                   <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                   <span className="text-slate-400 font-medium hidden md:inline">Neural Bridge Active</span>
+             <div className="hidden sm:flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                   <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Neural Bridge Enabled</span>
                 </div>
                 <div className="h-4 w-px bg-white/10" />
-                <div className="text-[10px] font-mono text-cyan-400/80 uppercase">
-                   LATENCY: {systemStatus.latency}ms
+                <div className="text-[9px] font-mono text-cyan-500/80 font-bold uppercase tracking-widest">
+                   SYNC_LATENCY: {systemStatus.latency}ms
                 </div>
              </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-4">
-            <button className="p-2 text-slate-400 hover:text-white transition-colors relative">
-               <History className="w-5 h-5" />
+          <div className="flex items-center gap-4">
+            <button className="p-2 text-slate-500 hover:text-cyan-400 transition-all relative group">
+               <History className="w-4 h-4" />
+               <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full border-2 border-[#020617]" />
             </button>
-            <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cyan-600/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-bold uppercase tracking-widest hover:bg-cyan-600/20 transition-all">
-               <PlusSquare className="w-4 h-4" /> <span className="hidden sm:inline">New Agent</span>
+            <button className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-widest hover:bg-cyan-500/20 transition-all group">
+               <PlusSquare className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" /> 
+               Deploy Agent
             </button>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-slate-700 to-slate-800 border border-white/10 flex items-center justify-center text-[10px] font-bold">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-slate-800 to-slate-950 border border-white/10 flex items-center justify-center text-[10px] font-black text-cyan-400 shadow-xl">
               OP
             </div>
           </div>
         </header>
 
         {/* Scrollable View */}
-        <main className="flex-1 overflow-y-auto bg-[#0a0f1e] p-4 lg:p-8 scroll-smooth">
-          <div className="max-w-7xl mx-auto h-full">
+        <main className="flex-1 overflow-y-auto bg-[#020617] p-6 lg:p-12 scroll-smooth">
+          <div className="max-w-7xl mx-auto h-full animate-in fade-in duration-700">
             {children}
           </div>
         </main>

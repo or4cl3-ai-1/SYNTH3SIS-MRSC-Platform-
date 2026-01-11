@@ -25,6 +25,7 @@ import { Agent, SystemStatus } from './types';
 const App: React.FC = () => {
   const [hasEntered, setHasEntered] = useState(false);
   const [activeView, setActiveView] = useState('dashboard');
+  const [selectedAgentId, setSelectedAgentId] = useState<string>(INITIAL_AGENTS[0].id);
   const [agents, setAgents] = useState<Agent[]>(INITIAL_AGENTS);
   const [systemStatus, setSystemStatus] = useState<SystemStatus>({
     overall: 'operational',
@@ -51,7 +52,7 @@ const App: React.FC = () => {
                             agent.pas_score > 0.6 ? 'significant' :
                             agent.pas_score > 0.3 ? 'moderate' : 'minimal'
       })));
-      setSystemStatus(prev => ({ ...prev, latency: Math.floor(18 + Math.random() * 15) }));
+      setSystemStatus(prev => ({ ...prev, latency: Math.floor(14 + Math.random() * 8) }));
     }, 5000);
     return () => clearInterval(interval);
   }, [hasEntered]);
@@ -67,9 +68,9 @@ const App: React.FC = () => {
   const renderView = () => {
     switch (activeView) {
       case 'dashboard': return <DashboardView agents={agents} systemStatus={systemStatus} />;
-      case 'agents': return <AgentsView agents={agents} />;
-      case 'chat': return <ChatView agents={agents} />;
-      case 'voice': return <VoiceInterfaceView agents={agents} />;
+      case 'agents': return <AgentsView agents={agents} setActiveView={setActiveView} setSelectedAgentId={setSelectedAgentId} />;
+      case 'chat': return <ChatView agents={agents} initialAgentId={selectedAgentId} />;
+      case 'voice': return <VoiceInterfaceView agents={agents} initialAgentId={selectedAgentId} />;
       case 'consensus': return <SwarmConsensusView agents={agents} />;
       case 'training': return <TrainingView agents={agents} />;
       case 'briefing': return <EmergenceBriefingView agents={agents} />;

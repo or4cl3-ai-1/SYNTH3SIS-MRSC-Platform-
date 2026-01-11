@@ -11,15 +11,16 @@
         
         :root {
             --bg-deep: #020617;
+            --bg-glass: rgba(15, 23, 42, 0.7);
             --accent-cyan: #22d3ee;
             --accent-blue: #3b82f6;
-            --glass-border: rgba(34, 211, 238, 0.1);
+            --glass-border: rgba(34, 211, 238, 0.15);
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-deep);
-            color: #f8fafc;
+            color: #f1f5f9;
             margin: 0;
             overflow-x: hidden;
             letter-spacing: -0.01em;
@@ -30,7 +31,7 @@
         }
 
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
 
         ::-webkit-scrollbar-track {
@@ -43,28 +44,28 @@
         }
 
         .glass-panel {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5);
         }
 
         .circuit-bg {
-            background-image: radial-gradient(circle at 2px 2px, rgba(34, 211, 238, 0.05) 1px, transparent 0);
-            background-size: 24px 24px;
+            background-image: radial-gradient(circle at 1px 1px, rgba(34, 211, 238, 0.03) 1px, transparent 0);
+            background-size: 32px 32px;
         }
 
         .text-glow {
-            text-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+            text-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
         }
 
         @keyframes pulse-cyan {
-            0%, 100% { opacity: 0.4; filter: blur(80px); }
-            50% { opacity: 0.7; filter: blur(100px); }
+            0%, 100% { opacity: 0.3; filter: blur(60px); }
+            50% { opacity: 0.6; filter: blur(90px); }
         }
 
         .animate-pulse-slow {
-            animation: pulse-cyan 4s ease-in-out infinite;
+            animation: pulse-cyan 5s ease-in-out infinite;
         }
 
         @keyframes scanline {
@@ -76,9 +77,10 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.05), transparent);
-            animation: scanline 8s linear infinite;
+            background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.03), transparent);
+            animation: scanline 10s linear infinite;
             pointer-events: none;
+            z-index: 999;
         }
     </style>
 <script type="importmap">

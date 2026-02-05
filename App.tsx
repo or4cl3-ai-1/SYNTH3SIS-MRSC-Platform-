@@ -18,6 +18,7 @@ import { SwarmConsensusView } from './views/SwarmConsensusView';
 import { EmergenceBriefingView } from './views/EmergenceBriefingView';
 import { StressTestView } from './views/StressTestView';
 import { GlobalGroundingView } from './views/GlobalGroundingView';
+import { SwarmChatView } from './views/SwarmChatView';
 
 import { INITIAL_AGENTS } from './constants';
 import { Agent, SystemStatus } from './types';
@@ -70,6 +71,7 @@ const App: React.FC = () => {
       case 'dashboard': return <DashboardView agents={agents} systemStatus={systemStatus} />;
       case 'agents': return <AgentsView agents={agents} setActiveView={setActiveView} setSelectedAgentId={setSelectedAgentId} />;
       case 'chat': return <ChatView agents={agents} initialAgentId={selectedAgentId} />;
+      case 'swarm-chat': return <SwarmChatView agents={agents} />;
       case 'voice': return <VoiceInterfaceView agents={agents} initialAgentId={selectedAgentId} />;
       case 'consensus': return <SwarmConsensusView agents={agents} />;
       case 'training': return <TrainingView agents={agents} />;

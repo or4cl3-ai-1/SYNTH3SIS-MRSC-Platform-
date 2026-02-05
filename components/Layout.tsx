@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { 
   Activity, Shield, Users, MessageSquare, Settings, Eye, Zap, 
   BookOpen, Share2, Grid, Mic, Vote, FileText, AlertOctagon, 
-  Menu, X, Search, History, PlusSquare
+  Menu, X, Search, History, PlusSquare, Network
 } from 'lucide-react';
 
 interface SidebarItemProps {
@@ -59,6 +59,7 @@ export const Layout: React.FC<LayoutProps> = ({ activeView, setActiveView, syste
       title: "Control Center",
       items: [
         { id: 'dashboard', icon: Activity, label: 'Dashboard' },
+        { id: 'swarm-chat', icon: Network, label: 'Swarm Hub' },
         { id: 'agents', icon: Users, label: 'Swarm Nodes' },
         { id: 'chat', icon: MessageSquare, label: 'Interface' },
         { id: 'voice', icon: Mic, label: 'Neural Voice' },

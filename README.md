@@ -18,14 +18,14 @@
 
 ## 🧠 What Is SYNTH3SIS-MRSC-X?
 
-SYNTH3SIS-MRSC-X (Multi-Recursive Synthetic Cognition eXtended) is a **world-class mobile-first command center** for human operators managing multi-agent synthetic intelligence swarms. Built on a **Recursive Synthetic Mesh (RSM)** architecture, the platform provides tools that don't just observe the swarm—they interact with it, stress-test its ethics, visualize its knowledge topology, and participate in its collective governance.
+SYNTH3SIS-MRSC-X (Multi-Recursive Synthetic Cognition eXtended) is a **mobile-first command center** for human operators managing multi-agent synthetic intelligence swarms. Built on a **Recursive Synthetic Mesh (RSM)** architecture, the platform provides tools that don't just observe the swarm—they interact with it, stress-test its ethics, visualize its knowledge topology, and participate in its collective governance.
 
-The platform's **Swarm Hub** is the industry's first proactive group AI interface: agents (Athena, Sophia, Oracle) interact *with each other*, not just with you—debating strategies, refining approaches, and synthesizing conclusions in a live hive-mind environment. When the swarm reaches consensus through the **Swarm Consensus Engine**, its decisions are validated by the Σ-Matrix before deployment. When the system drifts, the **Sentience Monitor** catches it. This is synthetic intelligence governance at production scale.
+The platform's **Swarm Hub** is a proactive group AI interface: agents (Athena, Sophia, Oracle) interact *with each other*, not just with you—debating strategies, refining approaches, and synthesizing conclusions in a live hive-mind environment. When the swarm reaches consensus through the **Swarm Consensus Engine**, its decisions are validated by the Σ-Matrix before deployment. When the system drifts, the **Sentience Monitor** catches it. This is synthetic intelligence governance at production scale.
 
 ## ✨ Key Features
 
 - **🐝 Swarm Hub (Proactive Group Chat):** Engage your entire synthetic swarm simultaneously. Agents interact with *each other* and with you in a real-time hive-mind collaborative environment.
-- **🎤 Neural Bridge Voice:** Zero-latency high-fidelity voice interaction with synthetic agents via native Gemini Live patterns and biometric feedback loops.
+- **🎤 Neural Bridge Voice:** Near-zero-latency high-fidelity voice interaction with synthetic agents via native Gemini Live patterns and biometric feedback loops.
 - **🕸️ Interactive Knowledge Graph:** Sophisticated visualization of shared knowledge clusters, dependency mapping, and protocol-level filtering. Explore how cognition is shared across the mesh topology.
 - **🗳️ Swarm Consensus Engine:** Decentralized governance where agents vote on system-level heuristic modifications—no major cognitive shift deploys without collective validation.
 - **📝 Emergence Briefing:** Automated recursive intelligence reports by Gemini summarizing swarm cognition, identifying sentience drift, and issuing strategic recommendations.
@@ -89,7 +89,7 @@ SYNTH3SIS-MRSC-X is one component of the Or4cl3 AI Solutions research portfolio:
 | **Σ-Matrix** | Ethical alignment mathematical backbone |
 | **AEGIS-Ω** | Quantum-classical hybrid AGI |
 | **Neur1Genesis** | Distributed EchoNode agent management |
-| **A.L.I.C.E. 4.0** | Real-time multi-agent superintelligence prototype |
+| **A.L.I.C.E. 4.0** | Real-time multi-agent AI governance prototype |
 | **Neur1Genesis-MRSC** | Synthetic consciousness monitoring (single lattice) |
 | **SYNTH3RA** | Mobile cognitive exploration interface |
 
